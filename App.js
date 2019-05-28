@@ -4,6 +4,10 @@ import Header from './src/components/Header'
 import Post from './src/components/Post'
 import Image from './assets/imgs/fence.jpg'
 
+const comments = [
+  { nickname: 'Joana Elena Silva', comment: 'Excelente Foto' },
+  { nickname: 'Rafael Gustavo', comment: 'Faço melhor!' }
+]
 
 
 export default class App extends Component {
@@ -11,8 +15,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Header />
-        <Post image={Image} />
-        <Post image={Image} />
+        <Post image={Image} comments={comments}/>
       </View>
     )
   }
