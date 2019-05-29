@@ -48,7 +48,7 @@ export default class AddPhoto extends Component {
                     </TouchableOpacity>
                     <TextInput placeholder='Adcione um comentário a sua foto' style={styles.input}
                         value={this.state.comment} onChangeText={comment => this.setState({ comment })} />
-                    <TouchableOpacity onPress={this.save} style={styles.button}>
+                    <TouchableOpacity disabled={this.state !== null} onPress={this.save} style={styles.button}>
                         <Text style={styles.textButton}>Salvar</Text>
                     </TouchableOpacity>
                 </View>
