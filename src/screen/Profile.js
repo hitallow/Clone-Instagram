@@ -10,6 +10,7 @@ export default class Profile extends Component {
 
     logout = () => {
 
+        this.props.navigation.navigate("Auth")
     }
     render() {
         return (
