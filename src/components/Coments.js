@@ -27,10 +27,12 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         margin: 10,
+        
     },
     commentsContainer: {
         flexDirection: 'row',
         marginTop: 5,
+        
     },
     nickname: {
         color: '#444',
