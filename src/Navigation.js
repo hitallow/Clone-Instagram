@@ -1,6 +1,7 @@
 import React from 'react'
 import {
     createBottomTabNavigator,
+    createSwitchNavigator,
     createStackNavigator
 } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -9,10 +10,28 @@ import Feed from './screen/Feed'
 import AddPhoto from './screen/AddPhoto'
 import Profile from './screen/Profile'
 import Login from './screen/Login'
+import Register from './screen/Register'
 
-const loginOrProfile = createStackNavigator({
+const authRouter = createBottomTabNavigator({
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            title: 'Login'
+        },
+        Register: {
+            screen: Register,
+            navigationOptions: {
+                title: 'Register'
+            }
+        }
+    }
+}, {
+        initialRouteName: 'Login'
+    })
+
+const loginOrProfile = createSwitchNavigator({
     Profile: Profile,
-    Auth: Login
+    Auth: authRouter
 }, {
         initialRouteName: 'Profile'
     })

@@ -11,6 +11,11 @@ export default class Login extends Component {
         this.props.navigation.navigate('Profile')
     }
 
+    register = ()=>{
+        alert("Cheguei")
+        this.props.navigation.navigate('Register')
+    }
+
     render() {
         return (
             <View style={styles.container} >
@@ -21,7 +26,7 @@ export default class Login extends Component {
                 <TouchableOpacity style={styles.button} onPress={this.login}>
                     <Text style={styles.textButton}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => { }}>
+                <TouchableOpacity style={styles.button} onPress={() => { this.register}}>
                     <Text style={styles.textButton}>Criar nova conta</Text>
                 </TouchableOpacity>
             </View>
