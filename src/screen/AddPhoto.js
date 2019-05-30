@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {
     View,
     TextInput,
-    Alert,
     Image,
     Text,
     Dimensions,
@@ -13,7 +12,11 @@ import {
 } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 
-export default class AddPhoto extends Component {
+import { addPost } from '../store/actions/postsActions'
+import { connect } from 'react-redux'
+
+class AddPhoto extends Component {
+
     state = {
         comment: '',
         image: null
@@ -32,7 +35,19 @@ export default class AddPhoto extends Component {
     }
 
     save = async () => {
-        Alert.alert("Foto adcionanda", this.state.comment)
+        this.props.onAddPost(
+            {
+                id: Math.random(),
+                nickname: this.props.name,
+                email: this.props.email,
+                image: this.state.image,
+                comments: [{
+                    nickname: this.props.name,
+                    comment: this.state.comment
+                }]
+            })
+        this.setState({ image: null, comment: '' })
+        this.props.navigation.navigate('Feed')
     }
 
     render() {
@@ -48,7 +63,7 @@ export default class AddPhoto extends Component {
                     </TouchableOpacity>
                     <TextInput placeholder='Adcione um comentário a sua foto' style={styles.input}
                         value={this.state.comment} onChangeText={comment => this.setState({ comment })} />
-                    <TouchableOpacity disabled={this.state !== null} onPress={this.save} style={styles.button}>
+                    <TouchableOpacity onPress={this.save} style={styles.button}>
                         <Text style={styles.textButton}>Salvar</Text>
                     </TouchableOpacity>
                 </View>
@@ -62,34 +77,48 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    title:{
-        fontSize :20,
+    title: {
+        fontSize: 20,
         fontWeight: 'bold',
         marginTop: Platform.OS === 'ios' ? 30 : 10,
     },
-    imgContainer:{
+    imgContainer: {
         width: '90%',
-        height : Dimensions.get('window').width /2,
-        backgroundColor : '#eee',
+        height: Dimensions.get('window').width / 2,
+        backgroundColor: '#eee',
         marginTop: 10
     },
-    image:{
+    image: {
         width: '90%',
-        height: Dimensions.get('window').width * 3/4,
+        height: Dimensions.get('window').width * 3 / 4,
         resizeMode: 'center'
     },
-    button:{
+    button: {
         marginTop: 30,
         padding: 10,
         backgroundColor: '#4286f4',
     },
-    textButton:{
+    textButton: {
         fontSize: 20,
         color: '#fff'
     },
-    input:{
-        marginTop:20,
+    input: {
+        marginTop: 20,
         width: '90%'
     }
 
 })
+
+const mapStateToProps = ({ user }) => {
+    return {
+        email: user.email,
+        name: user.name
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddPost: post => dispatch(addPost(post))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto)

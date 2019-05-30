@@ -12,6 +12,10 @@ import Profile from './screen/Profile'
 import Login from './screen/Login'
 import Register from './screen/Register'
 
+/** 
+ * Menu de pilha, que vai entre o menu de registrar e
+ * o menu de login
+*/
 const authRouter = createStackNavigator({
     Login: {
         screen: Login,
@@ -29,7 +33,9 @@ const authRouter = createStackNavigator({
         initialRouteName: 'Login'
     })
 
-
+/**
+ * Menu de switch entre o profile e o login 
+ * */
 const loginOrProfile = createSwitchNavigator({
     Profile: Profile,
     Auth: authRouter
@@ -37,6 +43,9 @@ const loginOrProfile = createSwitchNavigator({
         initialRouteName: 'Auth'
     })
 
+/**
+ * Menu de abas, alternando a tela principal
+ */
 
 const TabNavigator = createBottomTabNavigator({
     Feed: {
