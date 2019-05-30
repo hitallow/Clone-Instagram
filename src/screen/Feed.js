@@ -8,9 +8,7 @@ import { connect } from 'react-redux'
 
 class Feed extends Component {
 
-
     render() {
-        alert(this.props.posts)
         return (
             <View style={styles.container}>
                 <Header />

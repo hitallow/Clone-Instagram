@@ -1,7 +1,7 @@
-import { ADD_POST } from '../actions/actionsType'
+import { ADD_POST, ADD_COMENT } from '../actions/actionsType'
 
-import fence from'../../../assets/imgs/fence.jpg'
-import boat from'../../../assets/imgs/boat.jpg'
+import fence from '../../../assets/imgs/fence.jpg'
+import boat from '../../../assets/imgs/boat.jpg'
 
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
             id: Math.random(),
             nickname: 'Rafael Pereira Filho',
             email: 'rafael@gmail.com',
-            image:fence,
+            image: fence,
             comments: [{
                 nickname: 'John Ray Sheldon',
                 comment: 'Incrivel'
@@ -29,6 +29,7 @@ const initialState = {
     ]
 }
 
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
@@ -36,6 +37,21 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 posts: state.posts.concat({
                     ...action.payload
+                })
+            }
+        case ADD_COMENT:
+            return {
+                ...state,
+                posts: state.posts.map(post => {
+                    
+                    if (post.id === action.payload.idPost) {
+                        if (post.comments) {
+                            post.comments.push(action.payload.comment)
+                        } else {
+                            post.comments = [action.payload.comment]
+                        }
+                    }
+                    return post
                 })
             }
         default:

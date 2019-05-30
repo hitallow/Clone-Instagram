@@ -8,15 +8,26 @@ import {
     TouchableWithoutFeedback as TWF
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { connect } from 'react-redux'
+import { addComent } from '../store/actions/postsActions'
 
-export default class AddComent extends Component {
+
+class AddComent extends Component {
     state = {
         comment: '',
         editMode: false
     }
 
     handleAddComent = () => {
-        Alert.alert("Adcionado", this.state.comment)
+        
+        this.props.onAddComent({
+            idPost: this.props.postId,
+            comment: {
+                comment: this.state.comment,
+                nickname: this.props.name
+            }
+        })
+        this.setState({ comment: '', editMode: false })
     }
 
     render() {
@@ -61,7 +72,18 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#ccc'
     },
-    input:{
+    input: {
         width: '90%'
     }
 })
+const mapDispatchToPros = (dispatch) => {
+    return {
+        onAddComent: payload => dispatch(addComent(payload))
+    }
+}
+const mapStateToProps = ({ user }) => {
+    return {
+        name: user.name
+    }
+}
+export default connect(mapStateToProps, mapDispatchToPros)(AddComent)
