@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
+import { connect } from 'react-redux'
+import { login } from '../store/actions/userActions'
 
-export default class Login extends Component {
+class Login extends Component {
     state = {
+        name: 'Temporario',
         email: '',
         password: ''
     }
 
     login = () => {
+        this.props.onLogin({ ...this.state })
         this.props.navigation.navigate('Profile')
     }
 
-    register = ()=>{
-        alert("Cheguei")
-        this.props.navigation.navigate('Register')
+    register = () => {
+        this.props.navigation.navigate('Register')        
     }
 
     render() {
@@ -26,7 +29,7 @@ export default class Login extends Component {
                 <TouchableOpacity style={styles.button} onPress={this.login}>
                     <Text style={styles.textButton}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => { this.register}}>
+                <TouchableOpacity style={styles.button} onPress={this.register}>
                     <Text style={styles.textButton}>Criar nova conta</Text>
                 </TouchableOpacity>
             </View>
@@ -40,16 +43,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    button:{
+    button: {
         marginTop: 30,
         padding: 10,
         backgroundColor: '#4286f4',
     },
-    textButton:{
+    textButton: {
         fontSize: 20,
         color: '#fff'
     },
-    input:{
+    input: {
         marginTop: 20,
         width: '90%',
         backgroundColor: '#eee',
@@ -59,3 +62,11 @@ const styles = StyleSheet.create({
     }
 
 })
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogin: user => dispatch(login(user))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login)

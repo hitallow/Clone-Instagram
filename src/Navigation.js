@@ -12,31 +12,33 @@ import Profile from './screen/Profile'
 import Login from './screen/Login'
 import Register from './screen/Register'
 
-const authRouter = createBottomTabNavigator({
+const authRouter = createStackNavigator({
     Login: {
         screen: Login,
         navigationOptions: {
             title: 'Login'
-        },
-        Register: {
-            screen: Register,
-            navigationOptions: {
-                title: 'Register'
-            }
+        }
+    },
+    Register: {
+        screen: Register,
+        navigationOptions: {
+            title: 'Register'
         }
     }
 }, {
         initialRouteName: 'Login'
     })
 
+
 const loginOrProfile = createSwitchNavigator({
     Profile: Profile,
     Auth: authRouter
 }, {
-        initialRouteName: 'Profile'
+        initialRouteName: 'Auth'
     })
 
-const tabNavigator = createBottomTabNavigator({
+
+const TabNavigator = createBottomTabNavigator({
     Feed: {
         name: 'Feed',
         screen: Feed,
@@ -68,4 +70,5 @@ const tabNavigator = createBottomTabNavigator({
             showLabel: false,
         }
     })
-export default tabNavigator
+
+export default TabNavigator
